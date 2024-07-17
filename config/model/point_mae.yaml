@@ -1,0 +1,25 @@
+
+NAME: Point_MAE
+lr: 0.001
+weight_decay: 0.05
+ema_decay: 0.995
+amp: False
+train_num_steps: 60000
+gradient_accumulate_every: 2
+update_ema_every: 10
+step_start_ema: 2000
+save_and_sample_every: 1000
+results_folder: EXP
+group_size: 32
+num_group: 32
+loss: cdl2
+transformer_config:
+  mask_ratio: 0.6
+  mask_type: rand
+  trans_dim: 384
+  encoder_dims: 384
+  depth: 12
+  drop_path_rate: 0.1
+  num_heads: 6
+  decoder_depth: 4
+  decoder_num_heads: 6

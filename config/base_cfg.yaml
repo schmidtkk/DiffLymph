@@ -1,0 +1,3 @@
+defaults:
+  - dataset: data_config_prln
+  - model: ddpm

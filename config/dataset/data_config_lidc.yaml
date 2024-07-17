@@ -1,0 +1,22 @@
+root_dir: '/mnt/889cdd89-1094-48ae-b221-146ffe543605/zht/diffusion/medicaldiffusion-master/medicaldiffusion-master/data_conversion/LIDC-IDRI-Preprocessing-master/3d_roi_data/Image/'
+test_path: '/mnt/889cdd89-1094-48ae-b221-146ffe543605/zht/diffusion/medicaldiffusion-master/medicaldiffusion-master/data_conversion/LIDC-IDRI-Preprocessing-master/3d_roi_data/test.txt'
+name: 'lidc'
+a_min: -1000
+a_max: 400
+b_min: -1.0
+b_max: 1.0
+space_x: 0.7
+space_y: 0.7
+space_z: 1.25
+roi_x: 64
+roi_y: 64
+roi_z: 32
+batch_size: 12
+num_workers: 8
+num_samples: 10
+check_data_integrity: False
+visualize: False
+dist: False
+cond_dim: 16 # dim of histgram
+diffusion_img_size: 16
+diffusion_depth_size: 8
