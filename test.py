@@ -31,8 +31,11 @@ def select_context_loop(root_dir, mask, caselist):
     npz = np.load(f'{root_dir}/npz/{ct_name}.npz')
     img = npz['img']
     input_spacing = npz['spacing']
+    npz = np.load(f'{root_dir}/clean_labels/{ct_name}.npz')
+    lbl = npz['arr_0']
     scale = input_spacing / SPACING
     img = zoom(img, scale, order=1)
+    lbl = zoom(lbl, scale, order=0)
 
     if img.shape[0] < ROI_SIZE[0]:
         return False, None, None
@@ -58,7 +61,7 @@ def select_context_loop(root_dir, mask, caselist):
     xx2 = xx1 + crop_size[2]
     mask_crop[zz1:zz2, yy1:yy2, xx1:xx2] = mask
     kernel = np.ones((3, 3), np.uint8)
-    mask_dilated = cv2.dilate(mask_crop, kernel, iterations=5)
+    mask_dilated = cv2.dilate(mask_crop, kernel, iterations=10)
 
     
     for z1, y1, x1 in crops:
@@ -113,7 +116,6 @@ def visualize(img, mask, dir='visualize'):
 
 @hydra.main(config_path='config', config_name='base_cfg', version_base=None)
 def run(cfg: DictConfig):
-    torch.cuda.set_device(7)
     if cfg.model.denoising_fn == 'Unet3D':
         model = Unet3D(
             dim=cfg.model.diffusion_img_size,
@@ -191,4 +193,5 @@ def run(cfg: DictConfig):
 
 
 if __name__ == '__main__':
+    torch.cuda.set_device(7)
     run()
